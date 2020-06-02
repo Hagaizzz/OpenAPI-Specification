@@ -1,111 +1,3532 @@
-openapi: "3.0.0"
+openapi: 3.0.0
 info:
-  version: 1.0.0
-  title: Swagger Petstore
+  title: Keepers Client Interface
+  version: '1.0'
   license:
-    name: MIT
+    name: Allot
+    url: 'https://www.allot.com'
+  contact:
+    email: info@allot.com
+    url: 'https://www.allot.com'
+    name: Allot
+  description: |-
+    {
+      "$ref": "../../docs/keepers-client/intro/keepers-client.md"
+    }
+  x-logo:
+    url: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCACLAQEDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKTI9RTLj/AI95P901jUAbmR6ilrEj/wBYv1FbdACZHqKMj1FYr/6xvqabQBu0VHB/x7x/7oqSgAooooAKKKKACiiigAooooAKTcPUUj/6tvoaxKANzcPUUtYa/eH1rcoAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAI7j/j3k/wB01jVs3H/HvJ/umsagB0f+sX6itusSP/WL9RW3QBiP/rG+pptOf/WN9TTaANmD/j3j/wB0VJUcH/HvH/uipKACiiigAooooAKKKKACiiigBr/6tvoaxK23/wBW30NYlACr94fWtysNfvD61uUAFFFFABRRRQAUUUUAFFMklSJdznAqhLfSOcR/IP1oA0ulN3p/eX86xWZnOWYk+5pKAN3rRWGrMhyrEH2NWor+RTiT5h696ANKimRyJKu5DkU+gCO4/wCPeT/dNY1bNx/x7yf7prGoAdH/AKxfqK26xI/9Yv1FbdAGI/8ArG+pptOf/WN9TTaANmD/AI94/wDdFSVHB/x7x/7oqSgAorD8SeK9M8L2glvpC0r/AOrt48GR/fHYe5/nxXjmu/E7xBq7NHbzf2dbE8JbEh8ZyMv1z9MA+lYVsRCl8W57GXZHi8euaCtHu/07nvc08NtH5k8scSf3nYKPzNV11bTXYKmoWjE8ACZTn9a+W5ZZJ5WkmkeSRjlmc5JPuTTK43mPaP4n0ceDY296tr/h/wCCfWQIIBByD0Ipa+WdP1jUtKcPYX9xbEHdiKQqCfcdD+Nej+Gvi9OjpbeIYhJGcD7VCuGHuyjg/hj6GtaePpydpKx5uN4UxVCPNRamvuf3f8E9foqG1ure+tY7m1mSaCQbkkQ5BFTV3J31R8u007Ma/wDq2+hrEqxLczb3XecZIxiq9AhV+8PrW5WF0qb7XP8A89D+QoA16Kz7S4lkuAruSMHitCgAooooAKbI6xoXboKdWfqEuWWIdByaAK00zTOWb8B6VHRUkELTyBRwO59KAI+vSn+TLjPlvj/dNa0UMcK4Rfx7mpKAMIjBwaK2ZYUmXDrn37isueFoJNp5HY+tACQzNC+5fxHrWvG6yIHXoaxKu6fLh2jJ4PI+tAFy4/495P8AdNY1bNx/x7yf7prGoAdH/rF+orbrEj/1i/UVt0AYj/6xvqabTn/1jfU02gDZg/494/8AdFZHirxHb+GNEkvphvlPyQRf35COB7DjJPoPXFa8H/HvH/uivC/idrh1bxTJao2bawzCo7F/4z9c8f8AARUzlyxuevkmXLHYtQl8K1fp2+Zyep6ld6vfy3t7M0s8rEksc49h6Adh2qhUhrovBfg+fxbqbR7zDZQYa4mAyRnoq+55+mCfY+LVjKpNJatn6jVq0cJRc5+7GKOaVWdgqqWYnAAGSatSaVqMMPmy2F0kWM72hYDHrnFfSujeHtK0C38nTbKKDjDOBl37/Mx5NaddKy7TWWp8jV4ySn+6pXXm9fydvxPkyivojxR4B0jxJDJIIUtb8j5bmJcZP+2B97+fvXgWp6dc6RqU9heR7LiBtrj+RHsRgj61x18PKi9dj6DKs5oZjF8mklun+ndHb/D/AMUTaFKkMrs9hKcSISTs/wBoD+frXuCOsiK6MGVhkEdCK+bNJ/1S17T4C1M3ejNaSNmS1IC5/uHp+XI/KnluLaquhLZ7HyvE2BjzPEwWvX/M0Zf9c/8AvGmVsPDFsY+WmcHnaKx694+PCilX7w+tbHkRf88k/wC+RQBnWP8Ax9L9DWrTFijU5VFB9QKfQAUUUUAFY9y265kPvitisacYuJP940AR1p2CbYC3djWZWrZHNqvtn+dAFiiiigAqtfIGt93dTmrNQXhxav8Ah/OgDJqW3bbcRn/axUVPi/1yf7woA1rj/j3k/wB01jVs3H/HvJ/umsagB0f+sX6itusSP/WL9RW3QBiP/rG+pptOf/WN9TTaANXzkt9P8+Q4jji3sfQAZNfL080lxPJPKxeSRi7sepJOSa+lNZiefwnqEUa7nexlVR6koQK+aDWNf4Ufc8HQXJVn1ul+Yw19D/D3SU0nwXYAAeZcp9pkYdy4yPyXaPwr54NfTXhlg3hTR2GADZQ8D/cFYYVLnkzo4vqSWGpwWzevyRq0UUV2n58FeR/GbSUV9P1eNQHfNvKfXHzL/wCzfpXrlec/GV1HheyQ43G9BHrgI+f5iubGJOi7ntcPVJQzGny9dPlY8x0n/VLXpHgG4MWt+VniaJlx6kc/0Neb6T/qlrv/AASCfEdoQOgcn/vg18pTk1jINfzL8z67O4p0KifZnqb/AOrb6GsStt/9W30NYlfaH5uKv3h9a3Kw1+8PrW5QAUUUUAFFFFABWXfJtuCezDNalQXUHnRcfeXkUAZNXLGcIxjY8N0+tU+hooA3aKzIr6SMYYbx79an/tFMfcagC5WffzhiIlPAOT9aZLfSSDCjYPbrVWgAp8X+uT/eFMp8X+uT/eFAGtcf8e8n+6axq2bj/j3k/wB01jUAOj/1i/UVt1iR/wCsX6itugDEf/WN9TTac/8ArG+pptAGzBzbxg/3RXzFqti+mard2Ehy1vM0ROMZwcZ/HrX07B/x7x/7oryP4teHHhv49et4yYZwI7kj+FwMKT9Rgeny+9Z1VeJ9TwpjI0cVKjJ6TWnqtv1PMDXt3wn8QRah4d/smSQfa7EnapPLRE5DfgSV46ceteImptP1C70q+ivbGd4LiJsq6n9D6j1B4NeZGt7KpfofaZtlyzDDOjez3T8z6porzPRPjDp88SR61ayWs/RpYRvjPHXH3h9OfrW7J8TvCKIWXVGcjoq20uT+agV6KxFJq/Mj81q5Lj6U+R0pP0V196Ovrwr4q+Io9X8QJp9s4a308FCwOQ0hxu/LAH1Bq94p+LM+o2z2ehwy2kUgw9xIQJcdwoGQv1yT9K8zrz8ZiozXJDY+s4dyGrhqn1rEqz6L16s39J/1S16f8PLUyahPckfLFFt/Fj/gDXmOjqWjRVBJPAA717z4W0g6PokUMgxPJ+8l9ie34DivMwOHdXFqXSOv+QuJMQqVFw6y0/zNh/8AVt9DWJW2/wDq2+hrEr6k+BFX7w+tblYa/eH1rcoAKKKKACiiigAooooAqXNmJcvHw/cetZzKyNtYEH0NblNeNJBh1BHvQBiUVpNp8R+6WX9aZ/Zw/wCep/75oAoUoBPQZrRXT4h94s36VOIUWNkRQuRigDGp8X+uT/eFW/7OP/PQflSpp5V1bzBwc9KALVx/x7yf7prGrbkXfGyZxkYqj/Zzf89B+VAFSP8A1i/UVt1QXT2VgfMHBz0q/QBiP/rG+pptXm09ixPmDk+lJ/Zzf89B+VAFyD/j3j/3RUd9Y22pWM1leQrNbzLtdG6Ef0PcHsamjXZGq5zgAU6gcZOLUouzR89eM/BF74Xu2kRXn01z+6uAM7f9l8dD79D27gcjX1hNDFcQvDNGkkTgq6OoKsD1BB6ivPte+EelahI0+l3D6fIxyY9u+I/QZBXn3I9BXnYnBuT5qf3H3mV8VU3FU8bo/wCZbP1X+X4HiFFdxefCbxRbEeTFa3YPeGcDH/fe2qg+GXi8nH9kge5uYv8A4quB4aqnblZ9JHNsBJXVaP8A4EkclSqrO6oilmY4AAySa9H074OaxO4N/fWtrH3EeZX/AC4H616J4d8BaH4bZZoIDcXY/wCXm4wzD/d7L+HPvWtPBVZ7qyPNxvE2Bw8X7N88uy2+/b7rnPfDzwNLp8UWp6vFsnAzDbt1T/ab39B2+vT0iiivVoUIUY8sT87x2Nq42s61Xd/chr/6tvoaxK3GGVI9RVH+zj/z0H5VschSX7w+tblUBpxBB8wflV+gAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD//Z'
+    backgroundColor: '#FFFFFF'
+    altText: Keepers
 servers:
-  - url: http://petstore.swagger.io/v1
-paths:
-  /pets:
-    get:
-      summary: List all pets
-      operationId: listPets
-      tags:
-        - pets
-      parameters:
-        - name: limit
-          in: query
-          description: How many items to return at one time (max 100)
-          required: false
-          schema:
-            type: integer
-            format: int32
-      responses:
-        '200':
-          description: A paged array of pets
-          headers:
-            x-next:
-              description: A link to the next page of responses
-              schema:
-                type: string
-          content:
-            application/json:    
-              schema:
-                $ref: "#/components/schemas/Pets"
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-    post:
-      summary: Create a pet
-      operationId: createPets
-      tags:
-        - pets
-      responses:
-        '201':
-          description: Null response
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-  /pets/{petId}:
-    get:
-      summary: Info for a specific pet
-      operationId: showPetById
-      tags:
-        - pets
-      parameters:
-        - name: petId
-          in: path
-          required: true
-          description: The id of the pet to retrieve
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Expected response to a valid request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Pet"
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
+  - url: 'http://localhost:3000'
+tags:
+  - name: Configuration_model
+    x-displayName: Configuration
+    description: '<SchemaDefinition schemaRef="#/components/schemas/Configuration" />'
+  - name: Action_model
+    x-displayName: Action Request
+    description: '<SchemaDefinition schemaRef="#/components/schemas/Action" />'
+  - name: Event_model
+    x-displayName: Device Event
+    description: '<SchemaDefinition schemaRef="#/components/schemas/Event" />'
+x-tagGroups:
+  - name: Models
+    tags:
+      - Configuration_model
+      - Action_model
+      - Event_model
+paths: {}
 components:
   schemas:
-    Pet:
-      type: object
-      required:
-        - id
-        - name
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-        tag:
-          type: string
-    Pets:
-      type: array
-      items:
-        $ref: "#/components/schemas/Pet"
-    Error:
-      type: object
-      required:
-        - code
-        - message
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
+    Event:
+      title: Device Event
+      description: |-
+        Messages sent from Keepers Endpoint to the ASM are Device Events.
+        It uses to infrom the ASM about event or state change in the device, like category navigation forbidden, geo-fence alerts, app_usage...
+      allOf:
+        - title: message
+          type: object
+          description: Base Message for all messages between ASM and Keepers.
+          properties:
+            timestamp:
+              title: field_time_epoch
+              type: integer
+              description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+              format: int64
+              example: 1587825115
+            trace_id:
+              type: string
+              description: unique identifier of this specific message flow
+            device:
+              title: device_id_definition
+              type: object
+              properties:
+                device_id:
+                  type: string
+                  title: field_device_id
+                  description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                  example: d290f1ee6c544b0190e6d701748f0852
+                  maxLength: 64
+                  pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+          required:
+            - timestamp
+            - trace_id
+            - device
+        - type: object
+          discriminator:
+            propertyName: event_type
+          properties:
+            event_type:
+              type: string
+              description: 'Type of event being sent, depending on the kind additional properties may be present.'
+              enum:
+                - device_event_anti_bullying
+                - device_event_app_block
+                - device_event_app_list
+                - device_event_app_usage
+                - device_event_battery_level
+                - device_event_cancelled
+                - device_event_capabilies_changed
+                - device_event_configuration_applied
+                - device_event_configuration_required
+                - device_event_content_filtering
+                - device_event_geo_fence
+                - device_event_hello
+                - device_event_location
+                - device_event_on_boarding
+                - device_event_quiettime_released
+                - device_event_rta
+                - device_event_statistics
+                - device_event_device_data
+              example: device_event_location
+            event_id:
+              type: string
+              title: field_uuid_32_def
+              format: uuid
+              example: d290f1ee6c544b0190e6d701748f0892
+              minLength: 32
+              maxLength: 32
+              pattern: '^[a-zA-Z0-9]+$'
+          required:
+            - event_type
+            - event_id
+    device_event_anti_bullying:
+      title: device_event_anti_bullying
+      description: "Keepers Backend sends this event in case a Harmful conversation has been detected in Keepers Endpoint.\nThe Event includes Conversation info and the Messages that are part of the Conversation.  "
+      allOf:
+        - title: Device Event
+          description: |-
+            Messages sent from Keepers Endpoint to the ASM are Device Events.
+            It uses to infrom the ASM about event or state change in the device, like category navigation forbidden, geo-fence alerts, app_usage...
+          allOf:
+            - title: message
+              type: object
+              description: Base Message for all messages between ASM and Keepers.
+              properties:
+                timestamp:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                trace_id:
+                  type: string
+                  description: unique identifier of this specific message flow
+                device:
+                  title: device_id_definition
+                  type: object
+                  properties:
+                    device_id:
+                      type: string
+                      title: field_device_id
+                      description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                      example: d290f1ee6c544b0190e6d701748f0852
+                      maxLength: 64
+                      pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+              required:
+                - timestamp
+                - trace_id
+                - device
+            - type: object
+              discriminator:
+                propertyName: event_type
+              properties:
+                event_type:
+                  type: string
+                  description: 'Type of event being sent, depending on the kind additional properties may be present.'
+                  enum:
+                    - device_event_anti_bullying
+                    - device_event_app_block
+                    - device_event_app_list
+                    - device_event_app_usage
+                    - device_event_battery_level
+                    - device_event_cancelled
+                    - device_event_capabilies_changed
+                    - device_event_configuration_applied
+                    - device_event_configuration_required
+                    - device_event_content_filtering
+                    - device_event_geo_fence
+                    - device_event_hello
+                    - device_event_location
+                    - device_event_on_boarding
+                    - device_event_quiettime_released
+                    - device_event_rta
+                    - device_event_statistics
+                    - device_event_device_data
+                  example: device_event_location
+                event_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+              required:
+                - event_type
+                - event_id
+        - type: object
+          properties:
+            conversation:
+              title: anti_bullying_conversation_definition
+              description: |-
+                This Model describes anti-bullying(social media) Conversation as used in device_event_anti_bullying.
+                Each conversation includes list of messages that are part of the conversation.
+              type: object
+              properties:
+                creation_time:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                package_name:
+                  type: string
+                  title: app_package_name_def
+                  example: com.google.android.youtube
+                  description: Application Package Name in Android/iOS
+                conversation_id:
+                  type: string
+                  description: 'Unique ID, Created by Keeperd for any new conversation'
+                  format: uuid
+                  minLength: 64
+                  maxLength: 64
+                is_group:
+                  type: boolean
+                  description: True in case the message is part of group discussion
+                is_viewed:
+                  type: boolean
+                  description: True in case the message has been viewed by child
+                languages:
+                  type: array
+                  description: Languages of conversation
+                  items:
+                    title: field_language_id
+                    type: string
+                    description: 'A 2-level language identifier in the format language-region, in accordance with RFC 3066.'
+                    example: en-US
+                last_update_time:
+                  type: string
+                  description: Last message time
+                title:
+                  type: string
+                  description: Conversation Title
+                overall_severity:
+                  title: anti_bullying_severity_def
+                  type: string
+                  description: This Model describes anti-bullying(social media) Sevirity of harmfull Message or Conversation.
+                  default: none
+                  enum:
+                    - none
+                    - low
+                    - medium
+                    - high
+                  example: high
+                messages:
+                  type: array
+                  description: List of messages the part of the Conversation
+                  items:
+                    title: anti_bullying_message_definition
+                    type: object
+                    description: This Model describes anti-bullying(social media) Message that is part of a conversation(anti_bullying_conversation_definition)
+                    properties:
+                      creation_time:
+                        title: field_time_epoch
+                        type: integer
+                        description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                        format: int64
+                        example: 1587825115
+                      is_outgoing:
+                        type: string
+                        description: True in case message sent from the Endpoint
+                      tagged_text:
+                        type: string
+                        description: Message Text with highlited words
+                        example: '"something something <b class="easy">fuck</b> something"'
+                      severity:
+                        title: anti_bullying_severity_def
+                        type: string
+                        description: This Model describes anti-bullying(social media) Sevirity of harmfull Message or Conversation.
+                        default: none
+                        enum:
+                          - none
+                          - low
+                          - medium
+                          - high
+                        example: high
+                      type:
+                        title: anti_bullying_message_type_definition
+                        type: string
+                        description: |
+                          This Model describes anti-bullying(social media) Message Types
+                          {VIDEO , IMAGE , TEXT , GIF , VOICE , STICKER , LINK , CUSTOM , EMPTY}
+                        enum:
+                          - VIDEO
+                          - IMAGE
+                          - TEXT
+                          - GIF
+                          - VOICE
+                          - STICKER
+                          - LINK
+                          - CUSTOM
+                          - EMPTY
+                    required:
+                      - creation_time
+                      - is_outgoing
+                      - tagged_text
+                      - severity
+                      - type
+                is_kicked_off:
+                  type: boolean
+                  description: True in case kid has been removed from the conversation. If True there not going to be any new messages in that conversation
+              required:
+                - creation_time
+                - package_name
+                - conversation_id
+                - is_group
+                - is_viewed
+                - languages
+                - last_update_time
+                - title
+                - messages
+    device_event_app_block:
+      title: device_event_app_block
+      description: Event from Keepers Endpoint that includes list of applications that were blocked.
+      allOf:
+        - title: Device Event
+          description: |-
+            Messages sent from Keepers Endpoint to the ASM are Device Events.
+            It uses to infrom the ASM about event or state change in the device, like category navigation forbidden, geo-fence alerts, app_usage...
+          allOf:
+            - title: message
+              type: object
+              description: Base Message for all messages between ASM and Keepers.
+              properties:
+                timestamp:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                trace_id:
+                  type: string
+                  description: unique identifier of this specific message flow
+                device:
+                  title: device_id_definition
+                  type: object
+                  properties:
+                    device_id:
+                      type: string
+                      title: field_device_id
+                      description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                      example: d290f1ee6c544b0190e6d701748f0852
+                      maxLength: 64
+                      pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+              required:
+                - timestamp
+                - trace_id
+                - device
+            - type: object
+              discriminator:
+                propertyName: event_type
+              properties:
+                event_type:
+                  type: string
+                  description: 'Type of event being sent, depending on the kind additional properties may be present.'
+                  enum:
+                    - device_event_anti_bullying
+                    - device_event_app_block
+                    - device_event_app_list
+                    - device_event_app_usage
+                    - device_event_battery_level
+                    - device_event_cancelled
+                    - device_event_capabilies_changed
+                    - device_event_configuration_applied
+                    - device_event_configuration_required
+                    - device_event_content_filtering
+                    - device_event_geo_fence
+                    - device_event_hello
+                    - device_event_location
+                    - device_event_on_boarding
+                    - device_event_quiettime_released
+                    - device_event_rta
+                    - device_event_statistics
+                    - device_event_device_data
+                  example: device_event_location
+                event_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+              required:
+                - event_type
+                - event_id
+        - type: object
+          properties:
+            apps:
+              type: object
+              properties:
+                list:
+                  type: array
+                  description: List of applications that have been blocked
+                  items:
+                    type: object
+                    description: The Application that has been blocked and time of block
+                    properties:
+                      timestamp:
+                        title: field_time_epoch
+                        type: integer
+                        description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                        format: int64
+                        example: 1587825115
+                      app:
+                        type: string
+                        title: app_package_name_def
+                        example: com.google.android.youtube
+                        description: Application Package Name in Android/iOS
+                      category:
+                        type: string
+                        title: field_allot_category.yaml
+                        enum:
+                          - acma
+                          - government
+                          - anonymizers
+                          - anorexia_and_bulimia
+                          - spam_advertisers
+                          - art
+                          - gambling
+                          - banners
+                          - blogs
+                          - bombs
+                          - search_engines
+                          - chat
+                          - malware
+                          - shopping
+                          - webmail
+                          - sports
+                          - drugs
+                          - economy
+                          - education
+                          - employment
+                          - dating
+                          - financial_institutions
+                          - leisure
+                          - glamour
+                          - forum
+                          - generic
+                          - directory_and_street_maps
+                          - hackers
+                          - hostingdomains
+                          - kids
+                          - info
+                          - computing
+                          - ips_spammers
+                          - games
+                          - legal
+                          - white_list
+                          - black_list
+                          - logos_and_ringtones
+                          - instant_messaging
+                          - models
+                          - music
+                          - nazism
+                          - novirus_md5sums
+                          - pay_per_surf
+                          - personal_websites
+                          - phishing
+                          - popups
+                          - pornography
+                          - child_pornography
+                          - portals
+                          - press
+                          - racism
+                          - redirectors
+                          - society
+                          - health
+                          - sects
+                          - dns_services
+                          - p2p_servers
+                          - sexuality
+                          - spam_md5sums
+                          - spammers
+                          - spyware
+                          - telecommunications
+                          - travel
+                          - violence
+                          - voip
+                          - ipreplist
+                          - classified_ads
+                          - online_storage
+                          - alcohol_and_tobacco
+                          - reference_material
+                          - social_networks
+                          - photo_and_video
+                          - radio_and_tv_online
+                          - adult_games
+                          - internal
+                          - iwf_caic
+                          - software_update
+                          - antivirus_updates
+                          - kids_and_teens
+                          - restaurants
+                          - gastronomy
+                          - humor
+                          - pets
+                          - amusement_parks
+                          - astrology
+                          - garden_and_diy
+                          - cinema_theater_and_shows
+                          - series_and_movies
+                          - shopping_centers
+                          - nightlife
+                          - piercing_and_tattoos
+                          - antiques_and_collectables
+                          - home_and_garden
+                          - electronics
+                          - jewelry
+                          - books_music_and_videos
+                          - kids_and_babies
+                          - office
+                          - auctions
+                          - barter_and_exchange
+                          - clothing
+                          - real_state
+                          - mobiles
+                          - martial_arts
+                          - athletics
+                          - basketball
+                          - cycling
+                          - soccer
+                          - american_football
+                          - baseball
+                          - ice_hockey
+                          - golf
+                          - mountaineering
+                          - motor_racing
+                          - motorcycling
+                          - relaxation_sports
+                          - racket_sports
+                          - fighting
+                          - water_sports
+                          - winter_sports
+                          - air_sports
+                          - sport_centers
+                          - hunting_and_fishing
+                          - insurance
+                          - stock_exchange
+                          - vehicles
+                          - parked_domain
+                          - no_visible
+                          - easylist
+                          - botnetkav
+                          - tracking
+                          - content_delivery_networks
+                          - business
+                          - events
+                          - photography
+                          - books_literature
+                          - nature
+                          - ongs
+                          - politics_unions
+                          - religion
+                          - abortion
+                          - cyberbullying
+                          - military
+                          - pregnancy
+                          - self_harm
+                          - terrorism_extremism
+                          - weapons
+                          - gyms
+                        description: ''
+                      count:
+                        type: integer
+                        description: Number of times this app was blocked during Report collection time
+                    required:
+                      - timestamp
+                      - app
+                      - category
+                      - count
+    device_event_app_list:
+      title: device_event_app_list
+      description: 'List of the applications installed in the device. Keepers sends this event each time installed application list is changed (installed or uninstalled) and as response to **action_send_app_list** that is sent from ASM.'
+      allOf:
+        - title: Device Event
+          description: |-
+            Messages sent from Keepers Endpoint to the ASM are Device Events.
+            It uses to infrom the ASM about event or state change in the device, like category navigation forbidden, geo-fence alerts, app_usage...
+          allOf:
+            - title: message
+              type: object
+              description: Base Message for all messages between ASM and Keepers.
+              properties:
+                timestamp:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                trace_id:
+                  type: string
+                  description: unique identifier of this specific message flow
+                device:
+                  title: device_id_definition
+                  type: object
+                  properties:
+                    device_id:
+                      type: string
+                      title: field_device_id
+                      description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                      example: d290f1ee6c544b0190e6d701748f0852
+                      maxLength: 64
+                      pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+              required:
+                - timestamp
+                - trace_id
+                - device
+            - type: object
+              discriminator:
+                propertyName: event_type
+              properties:
+                event_type:
+                  type: string
+                  description: 'Type of event being sent, depending on the kind additional properties may be present.'
+                  enum:
+                    - device_event_anti_bullying
+                    - device_event_app_block
+                    - device_event_app_list
+                    - device_event_app_usage
+                    - device_event_battery_level
+                    - device_event_cancelled
+                    - device_event_capabilies_changed
+                    - device_event_configuration_applied
+                    - device_event_configuration_required
+                    - device_event_content_filtering
+                    - device_event_geo_fence
+                    - device_event_hello
+                    - device_event_location
+                    - device_event_on_boarding
+                    - device_event_quiettime_released
+                    - device_event_rta
+                    - device_event_statistics
+                    - device_event_device_data
+                  example: device_event_location
+                event_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+              required:
+                - event_type
+                - event_id
+        - type: object
+          description: Applications installe in the device
+          properties:
+            apps:
+              title: device_app_list_definition
+              type: object
+              description: This Model describes list of mobile Applications.
+              properties:
+                apps_list:
+                  type: array
+                  description: List of applications
+                  items:
+                    title: app_definition
+                    type: object
+                    description: |-
+                      This Model describes the definition of an Application.
+                      Applicatoin can be used in App Usage, Blocked Apps....
+                    properties:
+                      app_name:
+                        type: string
+                        description: 'application name, for example whatsapp'
+                        example: youtube
+                        maxLength: 64
+                      package_name:
+                        type: string
+                        title: app_package_name_def
+                        example: com.google.android.youtube
+                        description: Application Package Name in Android/iOS
+                    required:
+                      - app_name
+                      - package_name
+              required:
+                - apps_list
+          required:
+            - apps
+    device_event_app_usage:
+      title: device_event_app_usage
+      description: Keepers Endpoint sends periodic report (event) including Applications and there Usage Time (msec).
+      allOf:
+        - title: Device Event
+          description: |-
+            Messages sent from Keepers Endpoint to the ASM are Device Events.
+            It uses to infrom the ASM about event or state change in the device, like category navigation forbidden, geo-fence alerts, app_usage...
+          allOf:
+            - title: message
+              type: object
+              description: Base Message for all messages between ASM and Keepers.
+              properties:
+                timestamp:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                trace_id:
+                  type: string
+                  description: unique identifier of this specific message flow
+                device:
+                  title: device_id_definition
+                  type: object
+                  properties:
+                    device_id:
+                      type: string
+                      title: field_device_id
+                      description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                      example: d290f1ee6c544b0190e6d701748f0852
+                      maxLength: 64
+                      pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+              required:
+                - timestamp
+                - trace_id
+                - device
+            - type: object
+              discriminator:
+                propertyName: event_type
+              properties:
+                event_type:
+                  type: string
+                  description: 'Type of event being sent, depending on the kind additional properties may be present.'
+                  enum:
+                    - device_event_anti_bullying
+                    - device_event_app_block
+                    - device_event_app_list
+                    - device_event_app_usage
+                    - device_event_battery_level
+                    - device_event_cancelled
+                    - device_event_capabilies_changed
+                    - device_event_configuration_applied
+                    - device_event_configuration_required
+                    - device_event_content_filtering
+                    - device_event_geo_fence
+                    - device_event_hello
+                    - device_event_location
+                    - device_event_on_boarding
+                    - device_event_quiettime_released
+                    - device_event_rta
+                    - device_event_statistics
+                    - device_event_device_data
+                  example: device_event_location
+                event_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+              required:
+                - event_type
+                - event_id
+        - type: object
+          properties:
+            usage:
+              type: object
+              description: |-
+                Report Time: start_time - end_time
+                List of applications that ware used in report time and their usage time
+              required:
+                - start_time
+                - end_time
+                - apps_usage
+              properties:
+                start_time:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                end_time:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                apps_usage:
+                  type: array
+                  items:
+                    title: app_usage_definition
+                    type: object
+                    description: This Model describes Applicatioin usgae report.
+                    properties:
+                      package_name:
+                        type: string
+                        title: app_package_name_def
+                        example: com.google.android.youtube
+                        description: Application Package Name in Android/iOS
+                      usage_msec:
+                        type: integer
+                        example: 600000
+                        description: Application usage time in miliseconds
+                    required:
+                      - package_name
+                      - usage_msec
+          required:
+            - usage
+    device_event_battery_level:
+      title: device_event_battery_level
+      description: Keepers Endpoint sends periodic report of Device Battery Level.
+      allOf:
+        - title: Device Event
+          description: |-
+            Messages sent from Keepers Endpoint to the ASM are Device Events.
+            It uses to infrom the ASM about event or state change in the device, like category navigation forbidden, geo-fence alerts, app_usage...
+          allOf:
+            - title: message
+              type: object
+              description: Base Message for all messages between ASM and Keepers.
+              properties:
+                timestamp:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                trace_id:
+                  type: string
+                  description: unique identifier of this specific message flow
+                device:
+                  title: device_id_definition
+                  type: object
+                  properties:
+                    device_id:
+                      type: string
+                      title: field_device_id
+                      description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                      example: d290f1ee6c544b0190e6d701748f0852
+                      maxLength: 64
+                      pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+              required:
+                - timestamp
+                - trace_id
+                - device
+            - type: object
+              discriminator:
+                propertyName: event_type
+              properties:
+                event_type:
+                  type: string
+                  description: 'Type of event being sent, depending on the kind additional properties may be present.'
+                  enum:
+                    - device_event_anti_bullying
+                    - device_event_app_block
+                    - device_event_app_list
+                    - device_event_app_usage
+                    - device_event_battery_level
+                    - device_event_cancelled
+                    - device_event_capabilies_changed
+                    - device_event_configuration_applied
+                    - device_event_configuration_required
+                    - device_event_content_filtering
+                    - device_event_geo_fence
+                    - device_event_hello
+                    - device_event_location
+                    - device_event_on_boarding
+                    - device_event_quiettime_released
+                    - device_event_rta
+                    - device_event_statistics
+                    - device_event_device_data
+                  example: device_event_location
+                event_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+              required:
+                - event_type
+                - event_id
+        - type: object
+          properties:
+            battery:
+              type: object
+              required:
+                - battery_level
+              properties:
+                battery_level:
+                  type: integer
+                  example: 95
+                  minimum: 0
+                  maximum: 100
+          required:
+            - battery
+    device_event_cancelled:
+      title: device_event_cancelled
+      description: 'Keepers Endpoint sends **device_event_cancelled** after receiveing **action_cancel_device** from ASM.'
+      allOf:
+        - title: Device Event
+          description: |-
+            Messages sent from Keepers Endpoint to the ASM are Device Events.
+            It uses to infrom the ASM about event or state change in the device, like category navigation forbidden, geo-fence alerts, app_usage...
+          allOf:
+            - title: message
+              type: object
+              description: Base Message for all messages between ASM and Keepers.
+              properties:
+                timestamp:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                trace_id:
+                  type: string
+                  description: unique identifier of this specific message flow
+                device:
+                  title: device_id_definition
+                  type: object
+                  properties:
+                    device_id:
+                      type: string
+                      title: field_device_id
+                      description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                      example: d290f1ee6c544b0190e6d701748f0852
+                      maxLength: 64
+                      pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+              required:
+                - timestamp
+                - trace_id
+                - device
+            - type: object
+              discriminator:
+                propertyName: event_type
+              properties:
+                event_type:
+                  type: string
+                  description: 'Type of event being sent, depending on the kind additional properties may be present.'
+                  enum:
+                    - device_event_anti_bullying
+                    - device_event_app_block
+                    - device_event_app_list
+                    - device_event_app_usage
+                    - device_event_battery_level
+                    - device_event_cancelled
+                    - device_event_capabilies_changed
+                    - device_event_configuration_applied
+                    - device_event_configuration_required
+                    - device_event_content_filtering
+                    - device_event_geo_fence
+                    - device_event_hello
+                    - device_event_location
+                    - device_event_on_boarding
+                    - device_event_quiettime_released
+                    - device_event_rta
+                    - device_event_statistics
+                    - device_event_device_data
+                  example: device_event_location
+                event_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+              required:
+                - event_type
+                - event_id
+    device_event_capabilities_changed:
+      title: device_event_capabilities_changed
+      description: |
+        During Keepers Endpoint installation the application grants several admin privileges on the mobile phone.
+
+        Keepers Endpoint sends to ASM the current list of Priveliges and their State each time device settings have been changed.
+      allOf:
+        - title: Device Event
+          description: |-
+            Messages sent from Keepers Endpoint to the ASM are Device Events.
+            It uses to infrom the ASM about event or state change in the device, like category navigation forbidden, geo-fence alerts, app_usage...
+          allOf:
+            - title: message
+              type: object
+              description: Base Message for all messages between ASM and Keepers.
+              properties:
+                timestamp:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                trace_id:
+                  type: string
+                  description: unique identifier of this specific message flow
+                device:
+                  title: device_id_definition
+                  type: object
+                  properties:
+                    device_id:
+                      type: string
+                      title: field_device_id
+                      description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                      example: d290f1ee6c544b0190e6d701748f0852
+                      maxLength: 64
+                      pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+              required:
+                - timestamp
+                - trace_id
+                - device
+            - type: object
+              discriminator:
+                propertyName: event_type
+              properties:
+                event_type:
+                  type: string
+                  description: 'Type of event being sent, depending on the kind additional properties may be present.'
+                  enum:
+                    - device_event_anti_bullying
+                    - device_event_app_block
+                    - device_event_app_list
+                    - device_event_app_usage
+                    - device_event_battery_level
+                    - device_event_cancelled
+                    - device_event_capabilies_changed
+                    - device_event_configuration_applied
+                    - device_event_configuration_required
+                    - device_event_content_filtering
+                    - device_event_geo_fence
+                    - device_event_hello
+                    - device_event_location
+                    - device_event_on_boarding
+                    - device_event_quiettime_released
+                    - device_event_rta
+                    - device_event_statistics
+                    - device_event_device_data
+                  example: device_event_location
+                event_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+              required:
+                - event_type
+                - event_id
+        - type: object
+          properties:
+            privileges:
+              title: devicve_privileges_definition
+              type: object
+              properties:
+                admin:
+                  type: boolean
+                  description: Used for un-install prevention
+                overlay:
+                  type: boolean
+                  description: Used for web filtering
+                location:
+                  type: boolean
+                  description: Used for Location services (include GPS)
+                usage_access:
+                  type: boolean
+                  description: Used for applications usage time and more
+                accessibility:
+                  type: boolean
+                  description: Used for social media analysis
+                battery_optimization:
+                  type: boolean
+                  description: Used for Battery level monitoring
+          required:
+            - privileges
+    device_event_configuration_applied:
+      title: device_event_configuration_applied
+      description: Event sent from Keepers Endpoint to ASM after receiving a new configuration.
+      allOf:
+        - title: Device Event
+          description: |-
+            Messages sent from Keepers Endpoint to the ASM are Device Events.
+            It uses to infrom the ASM about event or state change in the device, like category navigation forbidden, geo-fence alerts, app_usage...
+          allOf:
+            - title: message
+              type: object
+              description: Base Message for all messages between ASM and Keepers.
+              properties:
+                timestamp:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                trace_id:
+                  type: string
+                  description: unique identifier of this specific message flow
+                device:
+                  title: device_id_definition
+                  type: object
+                  properties:
+                    device_id:
+                      type: string
+                      title: field_device_id
+                      description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                      example: d290f1ee6c544b0190e6d701748f0852
+                      maxLength: 64
+                      pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+              required:
+                - timestamp
+                - trace_id
+                - device
+            - type: object
+              discriminator:
+                propertyName: event_type
+              properties:
+                event_type:
+                  type: string
+                  description: 'Type of event being sent, depending on the kind additional properties may be present.'
+                  enum:
+                    - device_event_anti_bullying
+                    - device_event_app_block
+                    - device_event_app_list
+                    - device_event_app_usage
+                    - device_event_battery_level
+                    - device_event_cancelled
+                    - device_event_capabilies_changed
+                    - device_event_configuration_applied
+                    - device_event_configuration_required
+                    - device_event_content_filtering
+                    - device_event_geo_fence
+                    - device_event_hello
+                    - device_event_location
+                    - device_event_on_boarding
+                    - device_event_quiettime_released
+                    - device_event_rta
+                    - device_event_statistics
+                    - device_event_device_data
+                  example: device_event_location
+                event_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+              required:
+                - event_type
+                - event_id
+        - type: object
+          properties:
+            applied:
+              type: object
+              required:
+                - configuration_id
+              properties:
+                configuration_id:
+                  type: integer
+                  title: field_configuration_id_def
+                  format: int64
+                  example: 153
+                  minimum: 1
+                  exclusiveMinimum: false
+                  description: Increamental configuration ID. Each time new configuration is sent to the Endpoint the configuration id incremamted by 1
+          required:
+            - applied
+    device_event_configuration_required:
+      title: device_event_configuration_required
+      description: Event sent from Keepers Endpoint to ASM requesting for current Configuration.
+      allOf:
+        - title: Device Event
+          description: |-
+            Messages sent from Keepers Endpoint to the ASM are Device Events.
+            It uses to infrom the ASM about event or state change in the device, like category navigation forbidden, geo-fence alerts, app_usage...
+          allOf:
+            - title: message
+              type: object
+              description: Base Message for all messages between ASM and Keepers.
+              properties:
+                timestamp:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                trace_id:
+                  type: string
+                  description: unique identifier of this specific message flow
+                device:
+                  title: device_id_definition
+                  type: object
+                  properties:
+                    device_id:
+                      type: string
+                      title: field_device_id
+                      description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                      example: d290f1ee6c544b0190e6d701748f0852
+                      maxLength: 64
+                      pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+              required:
+                - timestamp
+                - trace_id
+                - device
+            - type: object
+              discriminator:
+                propertyName: event_type
+              properties:
+                event_type:
+                  type: string
+                  description: 'Type of event being sent, depending on the kind additional properties may be present.'
+                  enum:
+                    - device_event_anti_bullying
+                    - device_event_app_block
+                    - device_event_app_list
+                    - device_event_app_usage
+                    - device_event_battery_level
+                    - device_event_cancelled
+                    - device_event_capabilies_changed
+                    - device_event_configuration_applied
+                    - device_event_configuration_required
+                    - device_event_content_filtering
+                    - device_event_geo_fence
+                    - device_event_hello
+                    - device_event_location
+                    - device_event_on_boarding
+                    - device_event_quiettime_released
+                    - device_event_rta
+                    - device_event_statistics
+                    - device_event_device_data
+                  example: device_event_location
+                event_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+              required:
+                - event_type
+                - event_id
+        - type: object
+          properties:
+            required:
+              type: object
+              required:
+                - configuration_id
+              properties:
+                configuration_id:
+                  type: integer
+                  title: field_configuration_id_def
+                  format: int64
+                  example: 153
+                  minimum: 1
+                  exclusiveMinimum: false
+                  description: Increamental configuration ID. Each time new configuration is sent to the Endpoint the configuration id incremamted by 1
+          required:
+            - required
+    device_event_content_filtering:
+      title: device_event_content_filtering
+      description: Event sent by Keepers Endpoint to ASM with list of URLS that were used allowed/blocked.
+      allOf:
+        - title: Device Event
+          description: |-
+            Messages sent from Keepers Endpoint to the ASM are Device Events.
+            It uses to infrom the ASM about event or state change in the device, like category navigation forbidden, geo-fence alerts, app_usage...
+          allOf:
+            - title: message
+              type: object
+              description: Base Message for all messages between ASM and Keepers.
+              properties:
+                timestamp:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                trace_id:
+                  type: string
+                  description: unique identifier of this specific message flow
+                device:
+                  title: device_id_definition
+                  type: object
+                  properties:
+                    device_id:
+                      type: string
+                      title: field_device_id
+                      description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                      example: d290f1ee6c544b0190e6d701748f0852
+                      maxLength: 64
+                      pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+              required:
+                - timestamp
+                - trace_id
+                - device
+            - type: object
+              discriminator:
+                propertyName: event_type
+              properties:
+                event_type:
+                  type: string
+                  description: 'Type of event being sent, depending on the kind additional properties may be present.'
+                  enum:
+                    - device_event_anti_bullying
+                    - device_event_app_block
+                    - device_event_app_list
+                    - device_event_app_usage
+                    - device_event_battery_level
+                    - device_event_cancelled
+                    - device_event_capabilies_changed
+                    - device_event_configuration_applied
+                    - device_event_configuration_required
+                    - device_event_content_filtering
+                    - device_event_geo_fence
+                    - device_event_hello
+                    - device_event_location
+                    - device_event_on_boarding
+                    - device_event_quiettime_released
+                    - device_event_rta
+                    - device_event_statistics
+                    - device_event_device_data
+                  example: device_event_location
+                event_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+              required:
+                - event_type
+                - event_id
+        - type: object
+          properties:
+            content:
+              type: object
+              properties:
+                list:
+                  type: array
+                  description: "List of blocked URL's and blocking time"
+                  items:
+                    type: object
+                    properties:
+                      url:
+                        type: string
+                        example: www.xoxoxo.com
+                        description: The blocked Domain/Sub-Domain
+                      category:
+                        type: array
+                        description: The blocked url can be part of more than one category. In case that this is allowed URL than this field can be empty
+                        items:
+                          type: string
+                          title: field_allot_category.yaml
+                          enum:
+                            - acma
+                            - government
+                            - anonymizers
+                            - anorexia_and_bulimia
+                            - spam_advertisers
+                            - art
+                            - gambling
+                            - banners
+                            - blogs
+                            - bombs
+                            - search_engines
+                            - chat
+                            - malware
+                            - shopping
+                            - webmail
+                            - sports
+                            - drugs
+                            - economy
+                            - education
+                            - employment
+                            - dating
+                            - financial_institutions
+                            - leisure
+                            - glamour
+                            - forum
+                            - generic
+                            - directory_and_street_maps
+                            - hackers
+                            - hostingdomains
+                            - kids
+                            - info
+                            - computing
+                            - ips_spammers
+                            - games
+                            - legal
+                            - white_list
+                            - black_list
+                            - logos_and_ringtones
+                            - instant_messaging
+                            - models
+                            - music
+                            - nazism
+                            - novirus_md5sums
+                            - pay_per_surf
+                            - personal_websites
+                            - phishing
+                            - popups
+                            - pornography
+                            - child_pornography
+                            - portals
+                            - press
+                            - racism
+                            - redirectors
+                            - society
+                            - health
+                            - sects
+                            - dns_services
+                            - p2p_servers
+                            - sexuality
+                            - spam_md5sums
+                            - spammers
+                            - spyware
+                            - telecommunications
+                            - travel
+                            - violence
+                            - voip
+                            - ipreplist
+                            - classified_ads
+                            - online_storage
+                            - alcohol_and_tobacco
+                            - reference_material
+                            - social_networks
+                            - photo_and_video
+                            - radio_and_tv_online
+                            - adult_games
+                            - internal
+                            - iwf_caic
+                            - software_update
+                            - antivirus_updates
+                            - kids_and_teens
+                            - restaurants
+                            - gastronomy
+                            - humor
+                            - pets
+                            - amusement_parks
+                            - astrology
+                            - garden_and_diy
+                            - cinema_theater_and_shows
+                            - series_and_movies
+                            - shopping_centers
+                            - nightlife
+                            - piercing_and_tattoos
+                            - antiques_and_collectables
+                            - home_and_garden
+                            - electronics
+                            - jewelry
+                            - books_music_and_videos
+                            - kids_and_babies
+                            - office
+                            - auctions
+                            - barter_and_exchange
+                            - clothing
+                            - real_state
+                            - mobiles
+                            - martial_arts
+                            - athletics
+                            - basketball
+                            - cycling
+                            - soccer
+                            - american_football
+                            - baseball
+                            - ice_hockey
+                            - golf
+                            - mountaineering
+                            - motor_racing
+                            - motorcycling
+                            - relaxation_sports
+                            - racket_sports
+                            - fighting
+                            - water_sports
+                            - winter_sports
+                            - air_sports
+                            - sport_centers
+                            - hunting_and_fishing
+                            - insurance
+                            - stock_exchange
+                            - vehicles
+                            - parked_domain
+                            - no_visible
+                            - easylist
+                            - botnetkav
+                            - tracking
+                            - content_delivery_networks
+                            - business
+                            - events
+                            - photography
+                            - books_literature
+                            - nature
+                            - ongs
+                            - politics_unions
+                            - religion
+                            - abortion
+                            - cyberbullying
+                            - military
+                            - pregnancy
+                            - self_harm
+                            - terrorism_extremism
+                            - weapons
+                            - gyms
+                          description: ''
+                      timestamp:
+                        title: field_time_epoch
+                        type: integer
+                        description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                        format: int64
+                        example: 1587825115
+                      count:
+                        type: integer
+                        description: Number of times this URL was used during Report collection time
+                      is_blocked:
+                        type: boolean
+                        description: True in case the URL was blocked
+                    required:
+                      - url
+                      - category
+                      - timestamp
+                      - count
+                      - is_blocked
+    device_event_device_data:
+      title: device_event_device_data
+      description: |
+        Keepers Endpoint sends an **device_event_data** to ASM on any change in its Device Data
+        -- Device Name, Device Type, Platform, OS Version, Keepers App Version
+        or as reponse to **action_device_data**
+      allOf:
+        - title: Device Event
+          description: |-
+            Messages sent from Keepers Endpoint to the ASM are Device Events.
+            It uses to infrom the ASM about event or state change in the device, like category navigation forbidden, geo-fence alerts, app_usage...
+          allOf:
+            - title: message
+              type: object
+              description: Base Message for all messages between ASM and Keepers.
+              properties:
+                timestamp:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                trace_id:
+                  type: string
+                  description: unique identifier of this specific message flow
+                device:
+                  title: device_id_definition
+                  type: object
+                  properties:
+                    device_id:
+                      type: string
+                      title: field_device_id
+                      description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                      example: d290f1ee6c544b0190e6d701748f0852
+                      maxLength: 64
+                      pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+              required:
+                - timestamp
+                - trace_id
+                - device
+            - type: object
+              discriminator:
+                propertyName: event_type
+              properties:
+                event_type:
+                  type: string
+                  description: 'Type of event being sent, depending on the kind additional properties may be present.'
+                  enum:
+                    - device_event_anti_bullying
+                    - device_event_app_block
+                    - device_event_app_list
+                    - device_event_app_usage
+                    - device_event_battery_level
+                    - device_event_cancelled
+                    - device_event_capabilies_changed
+                    - device_event_configuration_applied
+                    - device_event_configuration_required
+                    - device_event_content_filtering
+                    - device_event_geo_fence
+                    - device_event_hello
+                    - device_event_location
+                    - device_event_on_boarding
+                    - device_event_quiettime_released
+                    - device_event_rta
+                    - device_event_statistics
+                    - device_event_device_data
+                  example: device_event_location
+                event_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+              required:
+                - event_type
+                - event_id
+        - type: object
+          properties:
+            data:
+              title: device_data_definition
+              type: object
+              description: 'This Model describes the Endpoint Mobile data. Platform, OS, Versions. '
+              properties:
+                device_name:
+                  type: string
+                  example: Huawei VKY-L29
+                device_type:
+                  title: field_device_type
+                  description: 'Type of device, can be used for representing visual clues in the user interface.'
+                  type: string
+                  default: other
+                  enum:
+                    - mobile
+                    - pc
+                    - tablet
+                    - console
+                    - mediacenter
+                    - printer
+                    - other
+                    - router
+                  example: mobile
+                platform:
+                  type: string
+                  title: field_device_platform
+                  default: other
+                  description: Platform of device
+                  enum:
+                    - android
+                    - ios
+                    - macos
+                    - windows
+                    - other
+                  example: android
+                os_version:
+                  type: string
+                  example: '9.0'
+                app_version:
+                  type: string
+                  example: 1.1.42
+                  description: Keepers Application Version
+    device_event_geo_fence:
+      title: device_event_geo_fence
+      description: Event sent from Keepers Endpoint to ASM in case of Geo-Fenace Area violation (enter/exit).
+      allOf:
+        - title: Device Event
+          description: |-
+            Messages sent from Keepers Endpoint to the ASM are Device Events.
+            It uses to infrom the ASM about event or state change in the device, like category navigation forbidden, geo-fence alerts, app_usage...
+          allOf:
+            - title: message
+              type: object
+              description: Base Message for all messages between ASM and Keepers.
+              properties:
+                timestamp:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                trace_id:
+                  type: string
+                  description: unique identifier of this specific message flow
+                device:
+                  title: device_id_definition
+                  type: object
+                  properties:
+                    device_id:
+                      type: string
+                      title: field_device_id
+                      description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                      example: d290f1ee6c544b0190e6d701748f0852
+                      maxLength: 64
+                      pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+              required:
+                - timestamp
+                - trace_id
+                - device
+            - type: object
+              discriminator:
+                propertyName: event_type
+              properties:
+                event_type:
+                  type: string
+                  description: 'Type of event being sent, depending on the kind additional properties may be present.'
+                  enum:
+                    - device_event_anti_bullying
+                    - device_event_app_block
+                    - device_event_app_list
+                    - device_event_app_usage
+                    - device_event_battery_level
+                    - device_event_cancelled
+                    - device_event_capabilies_changed
+                    - device_event_configuration_applied
+                    - device_event_configuration_required
+                    - device_event_content_filtering
+                    - device_event_geo_fence
+                    - device_event_hello
+                    - device_event_location
+                    - device_event_on_boarding
+                    - device_event_quiettime_released
+                    - device_event_rta
+                    - device_event_statistics
+                    - device_event_device_data
+                  example: device_event_location
+                event_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+              required:
+                - event_type
+                - event_id
+        - type: object
+          properties:
+            geo_fence:
+              title: geo_fence_area_definition
+              type: object
+              description: 'This Model describes Geo-Fence Area. The area is used in Geo-Fence configuration (**push_configuration**) and in the Event **device_event_geo_fence** that is created as reposne to Area Violation.'
+              properties:
+                area_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+                creation_time:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                latitude:
+                  type: number
+                  format: float
+                  example: 30
+                  minimum: -90
+                  maximum: 90
+                longitude:
+                  type: number
+                  format: float
+                  example: 120
+                  minimum: -180
+                  maximum: 180
+                radius_meters:
+                  type: integer
+                  description: Radius of Geo Fence Area in meters
+                  format: int32
+                  example: 155
+                is_restricted:
+                  type: boolean
+                  description: 'Trus in case this is Restricted(Red) area, False in case of Allowed(Green) area'
+                  example: 'true'
+              required:
+                - area_id
+                - creation_time
+                - latitude
+                - longitude
+                - radius_meters
+                - is_restricted
+            isExit:
+              type: boolean
+              description: True in case device exited from the Geo-Fence Area
+            violation_timestamp:
+              title: field_time_epoch
+              type: integer
+              description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+              format: int64
+              example: 1587825115
+          required:
+            - isExit
+            - violation_timestamp
+    device_event_hello:
+      title: device_event_hello
+      description: "Reperative message send from Keepers Endpoint to ASM. \nASM uses this message to minitor Endpoint connectivity."
+      allOf:
+        - title: Device Event
+          description: |-
+            Messages sent from Keepers Endpoint to the ASM are Device Events.
+            It uses to infrom the ASM about event or state change in the device, like category navigation forbidden, geo-fence alerts, app_usage...
+          allOf:
+            - title: message
+              type: object
+              description: Base Message for all messages between ASM and Keepers.
+              properties:
+                timestamp:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                trace_id:
+                  type: string
+                  description: unique identifier of this specific message flow
+                device:
+                  title: device_id_definition
+                  type: object
+                  properties:
+                    device_id:
+                      type: string
+                      title: field_device_id
+                      description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                      example: d290f1ee6c544b0190e6d701748f0852
+                      maxLength: 64
+                      pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+              required:
+                - timestamp
+                - trace_id
+                - device
+            - type: object
+              discriminator:
+                propertyName: event_type
+              properties:
+                event_type:
+                  type: string
+                  description: 'Type of event being sent, depending on the kind additional properties may be present.'
+                  enum:
+                    - device_event_anti_bullying
+                    - device_event_app_block
+                    - device_event_app_list
+                    - device_event_app_usage
+                    - device_event_battery_level
+                    - device_event_cancelled
+                    - device_event_capabilies_changed
+                    - device_event_configuration_applied
+                    - device_event_configuration_required
+                    - device_event_content_filtering
+                    - device_event_geo_fence
+                    - device_event_hello
+                    - device_event_location
+                    - device_event_on_boarding
+                    - device_event_quiettime_released
+                    - device_event_rta
+                    - device_event_statistics
+                    - device_event_device_data
+                  example: device_event_location
+                event_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+              required:
+                - event_type
+                - event_id
+    device_event_location:
+      title: device_event_location
+      description: 'Keepers Endpoint send **device_event_location** to ASM with current GPS Location.'
+      allOf:
+        - title: Device Event
+          description: |-
+            Messages sent from Keepers Endpoint to the ASM are Device Events.
+            It uses to infrom the ASM about event or state change in the device, like category navigation forbidden, geo-fence alerts, app_usage...
+          allOf:
+            - title: message
+              type: object
+              description: Base Message for all messages between ASM and Keepers.
+              properties:
+                timestamp:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                trace_id:
+                  type: string
+                  description: unique identifier of this specific message flow
+                device:
+                  title: device_id_definition
+                  type: object
+                  properties:
+                    device_id:
+                      type: string
+                      title: field_device_id
+                      description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                      example: d290f1ee6c544b0190e6d701748f0852
+                      maxLength: 64
+                      pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+              required:
+                - timestamp
+                - trace_id
+                - device
+            - type: object
+              discriminator:
+                propertyName: event_type
+              properties:
+                event_type:
+                  type: string
+                  description: 'Type of event being sent, depending on the kind additional properties may be present.'
+                  enum:
+                    - device_event_anti_bullying
+                    - device_event_app_block
+                    - device_event_app_list
+                    - device_event_app_usage
+                    - device_event_battery_level
+                    - device_event_cancelled
+                    - device_event_capabilies_changed
+                    - device_event_configuration_applied
+                    - device_event_configuration_required
+                    - device_event_content_filtering
+                    - device_event_geo_fence
+                    - device_event_hello
+                    - device_event_location
+                    - device_event_on_boarding
+                    - device_event_quiettime_released
+                    - device_event_rta
+                    - device_event_statistics
+                    - device_event_device_data
+                  example: device_event_location
+                event_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+              required:
+                - event_type
+                - event_id
+        - type: object
+          description: Specific data related to the location event.
+          properties:
+            location:
+              title: device_location_def
+              type: object
+              properties:
+                timestamp:
+                  type: string
+                  description: "Last time the device's coordinates were retrieved, in ISO-8601 in the format YYYY-MM-DDThh:mm:ssZ (note it must finish in Z for indicating UTC)."
+                  format: date-time
+                  example: '2008-09-15T15:53:00Z'
+                  minLength: 20
+                  maxLength: 20
+                  pattern: "^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\\\.[0-9]+)?(Z)$"
+                accuracy:
+                  type: number
+                  description: Accuracy level of the latitude and longitude coordinates in meters.
+                  enum:
+                    - low
+                    - medium
+                    - high
+                    - none
+                  example: low
+                longitude:
+                  type: number
+                  description: 'Longitude in decimal degrees, up to 6 decimal places.'
+                  format: float
+                  example: -1.256412
+                  minimum: -180
+                  maximum: 180
+                latitude:
+                  type: number
+                  description: 'Latitude in decimal degrees, up to 6 decimal places.'
+                  format: float
+                  example: 47.20022
+                  minimum: -90
+                  maximum: 90
+              required:
+                - timestamp
+                - accuracy
+                - longitude
+                - latitude
+    device_event_quiettime_released:
+      title: device_event_quiettime_released
+      description: Keepers Endpoint sends this event to ASM in case the device was in quiettime lock and the secret_key (as received in configuration) was eneterd and released the lock
+      allOf:
+        - title: Device Event
+          description: |-
+            Messages sent from Keepers Endpoint to the ASM are Device Events.
+            It uses to infrom the ASM about event or state change in the device, like category navigation forbidden, geo-fence alerts, app_usage...
+          allOf:
+            - title: message
+              type: object
+              description: Base Message for all messages between ASM and Keepers.
+              properties:
+                timestamp:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                trace_id:
+                  type: string
+                  description: unique identifier of this specific message flow
+                device:
+                  title: device_id_definition
+                  type: object
+                  properties:
+                    device_id:
+                      type: string
+                      title: field_device_id
+                      description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                      example: d290f1ee6c544b0190e6d701748f0852
+                      maxLength: 64
+                      pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+              required:
+                - timestamp
+                - trace_id
+                - device
+            - type: object
+              discriminator:
+                propertyName: event_type
+              properties:
+                event_type:
+                  type: string
+                  description: 'Type of event being sent, depending on the kind additional properties may be present.'
+                  enum:
+                    - device_event_anti_bullying
+                    - device_event_app_block
+                    - device_event_app_list
+                    - device_event_app_usage
+                    - device_event_battery_level
+                    - device_event_cancelled
+                    - device_event_capabilies_changed
+                    - device_event_configuration_applied
+                    - device_event_configuration_required
+                    - device_event_content_filtering
+                    - device_event_geo_fence
+                    - device_event_hello
+                    - device_event_location
+                    - device_event_on_boarding
+                    - device_event_quiettime_released
+                    - device_event_rta
+                    - device_event_statistics
+                    - device_event_device_data
+                  example: device_event_location
+                event_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+              required:
+                - event_type
+                - event_id
+        - type: object
+          properties:
+            released:
+              type: object
+              required:
+                - quiettime_release_key
+              properties:
+                quiettime_release_key:
+                  type: string
+                  description: The secret key that has been used in order to release quit time
+          required:
+            - released
+    device_event_on_boarding:
+      title: device_event_on_boarding
+      description: |-
+        When Accout Manager addes new device to account, from ASM prespective the device is not active till On-Boarding message arrives from it.
+        The paramter that binds the Account and Keepers Endpoint is **device_setup_key**. The ASM creates it during device addition and the Endpoint sends it to ASM in On-Boarding event.
+        After the deivce has been activated the ASM sends first configuration to the Endpoint.
+        On Boarding message includes first info from the device: device_data, app_list, privileges....
+        Keepers Endpoint should repeat On-Boarding event every 5 minutes till first copy of configuration arrives.
+      allOf:
+        - title: Device Event
+          description: |-
+            Messages sent from Keepers Endpoint to the ASM are Device Events.
+            It uses to infrom the ASM about event or state change in the device, like category navigation forbidden, geo-fence alerts, app_usage...
+          allOf:
+            - title: message
+              type: object
+              description: Base Message for all messages between ASM and Keepers.
+              properties:
+                timestamp:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                trace_id:
+                  type: string
+                  description: unique identifier of this specific message flow
+                device:
+                  title: device_id_definition
+                  type: object
+                  properties:
+                    device_id:
+                      type: string
+                      title: field_device_id
+                      description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                      example: d290f1ee6c544b0190e6d701748f0852
+                      maxLength: 64
+                      pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+              required:
+                - timestamp
+                - trace_id
+                - device
+            - type: object
+              discriminator:
+                propertyName: event_type
+              properties:
+                event_type:
+                  type: string
+                  description: 'Type of event being sent, depending on the kind additional properties may be present.'
+                  enum:
+                    - device_event_anti_bullying
+                    - device_event_app_block
+                    - device_event_app_list
+                    - device_event_app_usage
+                    - device_event_battery_level
+                    - device_event_cancelled
+                    - device_event_capabilies_changed
+                    - device_event_configuration_applied
+                    - device_event_configuration_required
+                    - device_event_content_filtering
+                    - device_event_geo_fence
+                    - device_event_hello
+                    - device_event_location
+                    - device_event_on_boarding
+                    - device_event_quiettime_released
+                    - device_event_rta
+                    - device_event_statistics
+                    - device_event_device_data
+                  example: device_event_location
+                event_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+              required:
+                - event_type
+                - event_id
+        - type: object
+          properties:
+            boarding:
+              type: object
+              properties:
+                device_setup_key:
+                  type: string
+                  description: |
+                    On Boarding ID - e.g. email address
+                device_data:
+                  title: device_data_definition
+                  type: object
+                  description: 'This Model describes the Endpoint Mobile data. Platform, OS, Versions. '
+                  properties:
+                    device_name:
+                      type: string
+                      example: Huawei VKY-L29
+                    device_type:
+                      title: field_device_type
+                      description: 'Type of device, can be used for representing visual clues in the user interface.'
+                      type: string
+                      default: other
+                      enum:
+                        - mobile
+                        - pc
+                        - tablet
+                        - console
+                        - mediacenter
+                        - printer
+                        - other
+                        - router
+                      example: mobile
+                    platform:
+                      type: string
+                      title: field_device_platform
+                      default: other
+                      description: Platform of device
+                      enum:
+                        - android
+                        - ios
+                        - macos
+                        - windows
+                        - other
+                      example: android
+                    os_version:
+                      type: string
+                      example: '9.0'
+                    app_version:
+                      type: string
+                      example: 1.1.42
+                      description: Keepers Application Version
+                app_list:
+                  title: device_app_list_definition
+                  type: object
+                  description: This Model describes list of mobile Applications.
+                  properties:
+                    apps_list:
+                      type: array
+                      description: List of applications
+                      items:
+                        title: app_definition
+                        type: object
+                        description: |-
+                          This Model describes the definition of an Application.
+                          Applicatoin can be used in App Usage, Blocked Apps....
+                        properties:
+                          app_name:
+                            type: string
+                            description: 'application name, for example whatsapp'
+                            example: youtube
+                            maxLength: 64
+                          package_name:
+                            type: string
+                            title: app_package_name_def
+                            example: com.google.android.youtube
+                            description: Application Package Name in Android/iOS
+                        required:
+                          - app_name
+                          - package_name
+                  required:
+                    - apps_list
+                device_privileges:
+                  title: devicve_privileges_definition
+                  type: object
+                  properties:
+                    admin:
+                      type: boolean
+                      description: Used for un-install prevention
+                    overlay:
+                      type: boolean
+                      description: Used for web filtering
+                    location:
+                      type: boolean
+                      description: Used for Location services (include GPS)
+                    usage_access:
+                      type: boolean
+                      description: Used for applications usage time and more
+                    accessibility:
+                      type: boolean
+                      description: Used for social media analysis
+                    battery_optimization:
+                      type: boolean
+                      description: Used for Battery level monitoring
+              required:
+                - device_setup_key
+                - device_data
+                - app_list
+                - device_privileges
+    device_event_rta:
+      title: device_event_rta
+      description: 'As reponse to action_send_rta, Keepers backend collect all device data stored in its System and creates Json Object File with all the data.The event contains file_token_id  that can identify that file in Keepers Backend. The file has expiration time, after that the token is invalid.'
+      allOf:
+        - title: Device Event
+          description: |-
+            Messages sent from Keepers Endpoint to the ASM are Device Events.
+            It uses to infrom the ASM about event or state change in the device, like category navigation forbidden, geo-fence alerts, app_usage...
+          allOf:
+            - title: message
+              type: object
+              description: Base Message for all messages between ASM and Keepers.
+              properties:
+                timestamp:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                trace_id:
+                  type: string
+                  description: unique identifier of this specific message flow
+                device:
+                  title: device_id_definition
+                  type: object
+                  properties:
+                    device_id:
+                      type: string
+                      title: field_device_id
+                      description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                      example: d290f1ee6c544b0190e6d701748f0852
+                      maxLength: 64
+                      pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+              required:
+                - timestamp
+                - trace_id
+                - device
+            - type: object
+              discriminator:
+                propertyName: event_type
+              properties:
+                event_type:
+                  type: string
+                  description: 'Type of event being sent, depending on the kind additional properties may be present.'
+                  enum:
+                    - device_event_anti_bullying
+                    - device_event_app_block
+                    - device_event_app_list
+                    - device_event_app_usage
+                    - device_event_battery_level
+                    - device_event_cancelled
+                    - device_event_capabilies_changed
+                    - device_event_configuration_applied
+                    - device_event_configuration_required
+                    - device_event_content_filtering
+                    - device_event_geo_fence
+                    - device_event_hello
+                    - device_event_location
+                    - device_event_on_boarding
+                    - device_event_quiettime_released
+                    - device_event_rta
+                    - device_event_statistics
+                    - device_event_device_data
+                  example: device_event_location
+                event_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+              required:
+                - event_type
+                - event_id
+        - type: object
+          properties:
+            rta:
+              type: object
+              description: After expiration time the token become obsolete and the device rta object can be deleted
+              properties:
+                file_token_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+                expiration_time:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+    device_event_statistics:
+      title: device_event_statistics
+      description: 'Keepers Endpoint sends periodic statistics report to ASM,'
+      allOf:
+        - title: Device Event
+          description: |-
+            Messages sent from Keepers Endpoint to the ASM are Device Events.
+            It uses to infrom the ASM about event or state change in the device, like category navigation forbidden, geo-fence alerts, app_usage...
+          allOf:
+            - title: message
+              type: object
+              description: Base Message for all messages between ASM and Keepers.
+              properties:
+                timestamp:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                trace_id:
+                  type: string
+                  description: unique identifier of this specific message flow
+                device:
+                  title: device_id_definition
+                  type: object
+                  properties:
+                    device_id:
+                      type: string
+                      title: field_device_id
+                      description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                      example: d290f1ee6c544b0190e6d701748f0852
+                      maxLength: 64
+                      pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+              required:
+                - timestamp
+                - trace_id
+                - device
+            - type: object
+              discriminator:
+                propertyName: event_type
+              properties:
+                event_type:
+                  type: string
+                  description: 'Type of event being sent, depending on the kind additional properties may be present.'
+                  enum:
+                    - device_event_anti_bullying
+                    - device_event_app_block
+                    - device_event_app_list
+                    - device_event_app_usage
+                    - device_event_battery_level
+                    - device_event_cancelled
+                    - device_event_capabilies_changed
+                    - device_event_configuration_applied
+                    - device_event_configuration_required
+                    - device_event_content_filtering
+                    - device_event_geo_fence
+                    - device_event_hello
+                    - device_event_location
+                    - device_event_on_boarding
+                    - device_event_quiettime_released
+                    - device_event_rta
+                    - device_event_statistics
+                    - device_event_device_data
+                  example: device_event_location
+                event_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+              required:
+                - event_type
+                - event_id
+        - type: object
+          properties:
+            stats:
+              type: object
+              description: General Statistics Object include interior Object per Feature
+              properties:
+                anti_bullying:
+                  type: object
+                  description: Geberal Social Media Message Metrics
+                  properties:
+                    app_msgs:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          app_package_name:
+                            type: string
+                            title: app_package_name_def
+                            example: com.google.android.youtube
+                            description: Application Package Name in Android/iOS
+                          msgs_types:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                msg_type:
+                                  title: anti_bullying_message_type_definition
+                                  type: string
+                                  description: |
+                                    This Model describes anti-bullying(social media) Message Types
+                                    {VIDEO , IMAGE , TEXT , GIF , VOICE , STICKER , LINK , CUSTOM , EMPTY}
+                                  enum:
+                                    - VIDEO
+                                    - IMAGE
+                                    - TEXT
+                                    - GIF
+                                    - VOICE
+                                    - STICKER
+                                    - LINK
+                                    - CUSTOM
+                                    - EMPTY
+                                msg_sent_count:
+                                  type: integer
+                                msg_recv_vount:
+                                  type: integer
+                          msgs_sevirity:
+                            type: object
+                            properties:
+                              low:
+                                type: integer
+                              med:
+                                type: integer
+                              high:
+                                type: integer
+                              none:
+                                type: integer
+                    app_conversations:
+                      type: array
+                      description: This object is created only in Keepers Backend
+                      items:
+                        type: object
+                        properties:
+                          app_package_name:
+                            type: string
+                            title: app_package_name_def
+                            example: com.google.android.youtube
+                            description: Application Package Name in Android/iOS
+                          total_new_conv_count:
+                            type: integer
+                            description: |
+                              Number of new conversations created during that time
+                          harmful_new_conv_count:
+                            type: integer
+                            description: Number of conversations declared in first time as harmful
+                          harmful_continue_conv_count:
+                            description: Number of conversations that already declared as harmful but new harmful content has been added during report time
+                            type: integer
+                          total_conv_count:
+                            type: integer
+                            description: Number of active conversations during report time
+                          severity_low_new_conv:
+                            type: integer
+                            description: Number of conversations that their sevirity raiesed to low during report time
+                          severity_med_new_conv:
+                            type: integer
+                            description: Number of conversations that their sevirity raiesed to medium during report time
+                          severity_high_new_conv:
+                            type: integer
+                            description: Number of conversations that their sevirity raiesed to high during report time
+                geo_fence:
+                  type: object
+                  description: General Geo-Fence Metrics
+                  properties:
+                    enter_red_count:
+                      type: integer
+                      description: Number of times the device entered restricted areas
+                    enter_green_count:
+                      type: integer
+                      description: Number of times the device entered allowed areas
+                    exit_red_count:
+                      type: integer
+                      description: Number of times the device exited restricted areas
+                    exit_green_count:
+                      type: integer
+                      description: Number of times the device exited allowed areas
+                content_filtering:
+                  type: object
+                  description: General Content Filtering Metrics
+                  properties:
+                    total_count:
+                      type: integer
+                    blocked_ount:
+                      type: integer
+                app_blocking:
+                  type: object
+                  description: General App Blocking Metrics
+                  properties:
+                    total_count:
+                      type: integer
+                    blocked_count:
+                      type: integer
+                general:
+                  type: object
+                  properties:
+                    disconnectivity_count:
+                      type: integer
+          required:
+            - stats
+    Action:
+      title: Action Request
+      description: |-
+        Base message for all Actions sent from ASM to Keepers.
+        The Action request for execution of an operation on Keepers Endpoint Entity.
+      allOf:
+        - title: message
+          type: object
+          description: Base Message for all messages between ASM and Keepers.
+          properties:
+            timestamp:
+              title: field_time_epoch
+              type: integer
+              description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+              format: int64
+              example: 1587825115
+            trace_id:
+              type: string
+              description: unique identifier of this specific message flow
+            device:
+              title: device_id_definition
+              type: object
+              properties:
+                device_id:
+                  type: string
+                  title: field_device_id
+                  description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                  example: d290f1ee6c544b0190e6d701748f0852
+                  maxLength: 64
+                  pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+          required:
+            - timestamp
+            - trace_id
+            - device
+        - type: object
+          discriminator:
+            propertyName: action_type
+          properties:
+            action_type:
+              type: string
+              description: Type of action to execute
+              enum:
+                - action_cancel_device
+                - action_refresh_location
+                - action_send_app_list
+                - action_send_rta
+                - action_send_device_data
+              example: action_refresh_location
+            action_request_id:
+              type: string
+              title: field_uuid_32_def
+              format: uuid
+              example: d290f1ee6c544b0190e6d701748f0892
+              minLength: 32
+              maxLength: 32
+              pattern: '^[a-zA-Z0-9]+$'
+          required:
+            - action_type
+            - action_request_id
+    action_refresh_location:
+      title: action_refresh_location
+      description: "Action to force Keepers Endpoint to send its current location. \n\nAs response Keepers Endpoint sends its current location using the Event **device_event_location**."
+      allOf:
+        - title: Action Request
+          description: |-
+            Base message for all Actions sent from ASM to Keepers.
+            The Action request for execution of an operation on Keepers Endpoint Entity.
+          allOf:
+            - title: message
+              type: object
+              description: Base Message for all messages between ASM and Keepers.
+              properties:
+                timestamp:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                trace_id:
+                  type: string
+                  description: unique identifier of this specific message flow
+                device:
+                  title: device_id_definition
+                  type: object
+                  properties:
+                    device_id:
+                      type: string
+                      title: field_device_id
+                      description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                      example: d290f1ee6c544b0190e6d701748f0852
+                      maxLength: 64
+                      pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+              required:
+                - timestamp
+                - trace_id
+                - device
+            - type: object
+              discriminator:
+                propertyName: action_type
+              properties:
+                action_type:
+                  type: string
+                  description: Type of action to execute
+                  enum:
+                    - action_cancel_device
+                    - action_refresh_location
+                    - action_send_app_list
+                    - action_send_rta
+                    - action_send_device_data
+                  example: action_refresh_location
+                action_request_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+              required:
+                - action_type
+                - action_request_id
+    action_send_app_list:
+      title: action_send_app_list
+      description: "Action to force Keepers Endpoint to send the list of installed applications. \n\nAs reponse Keepers Endpoint sends the list using the Event **device_event_app_list**."
+      allOf:
+        - title: Action Request
+          description: |-
+            Base message for all Actions sent from ASM to Keepers.
+            The Action request for execution of an operation on Keepers Endpoint Entity.
+          allOf:
+            - title: message
+              type: object
+              description: Base Message for all messages between ASM and Keepers.
+              properties:
+                timestamp:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                trace_id:
+                  type: string
+                  description: unique identifier of this specific message flow
+                device:
+                  title: device_id_definition
+                  type: object
+                  properties:
+                    device_id:
+                      type: string
+                      title: field_device_id
+                      description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                      example: d290f1ee6c544b0190e6d701748f0852
+                      maxLength: 64
+                      pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+              required:
+                - timestamp
+                - trace_id
+                - device
+            - type: object
+              discriminator:
+                propertyName: action_type
+              properties:
+                action_type:
+                  type: string
+                  description: Type of action to execute
+                  enum:
+                    - action_cancel_device
+                    - action_refresh_location
+                    - action_send_app_list
+                    - action_send_rta
+                    - action_send_device_data
+                  example: action_refresh_location
+                action_request_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+              required:
+                - action_type
+                - action_request_id
+    action_cancel_device:
+      title: action_cancel_device
+      description: "Cancel message is sent from ASM to Keepers when the account or device has been cancelled. \n\nOn reception Keeprers stops providing filtering services and enable uninstall of the application without a secret key.\nAs respons Keepers sends to ASM **device_event_cancled**"
+      allOf:
+        - title: Action Request
+          description: |-
+            Base message for all Actions sent from ASM to Keepers.
+            The Action request for execution of an operation on Keepers Endpoint Entity.
+          allOf:
+            - title: message
+              type: object
+              description: Base Message for all messages between ASM and Keepers.
+              properties:
+                timestamp:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                trace_id:
+                  type: string
+                  description: unique identifier of this specific message flow
+                device:
+                  title: device_id_definition
+                  type: object
+                  properties:
+                    device_id:
+                      type: string
+                      title: field_device_id
+                      description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                      example: d290f1ee6c544b0190e6d701748f0852
+                      maxLength: 64
+                      pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+              required:
+                - timestamp
+                - trace_id
+                - device
+            - type: object
+              discriminator:
+                propertyName: action_type
+              properties:
+                action_type:
+                  type: string
+                  description: Type of action to execute
+                  enum:
+                    - action_cancel_device
+                    - action_refresh_location
+                    - action_send_app_list
+                    - action_send_rta
+                    - action_send_device_data
+                  example: action_refresh_location
+                action_request_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+              required:
+                - action_type
+                - action_request_id
+    action_send_device_data:
+      title: action_send_device_data
+      description: "Action to force Keepers Endpoint to send its Device data. \n\nAs response Keepers Endpoint sends its device info (OS Version, Platfrom, ...) using the Event **device_event_device_data**."
+      allOf:
+        - title: Action Request
+          description: |-
+            Base message for all Actions sent from ASM to Keepers.
+            The Action request for execution of an operation on Keepers Endpoint Entity.
+          allOf:
+            - title: message
+              type: object
+              description: Base Message for all messages between ASM and Keepers.
+              properties:
+                timestamp:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                trace_id:
+                  type: string
+                  description: unique identifier of this specific message flow
+                device:
+                  title: device_id_definition
+                  type: object
+                  properties:
+                    device_id:
+                      type: string
+                      title: field_device_id
+                      description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                      example: d290f1ee6c544b0190e6d701748f0852
+                      maxLength: 64
+                      pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+              required:
+                - timestamp
+                - trace_id
+                - device
+            - type: object
+              discriminator:
+                propertyName: action_type
+              properties:
+                action_type:
+                  type: string
+                  description: Type of action to execute
+                  enum:
+                    - action_cancel_device
+                    - action_refresh_location
+                    - action_send_app_list
+                    - action_send_rta
+                    - action_send_device_data
+                  example: action_refresh_location
+                action_request_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+              required:
+                - action_type
+                - action_request_id
+    action_send_rta:
+      title: action_send_rta
+      description: "Action to force Keepers to create a Json object that includes all Device Data stroed in their system. \n\nAs response Keepers Endpoint sends a link(token) to the created Device Object (Can be fetched using Rest API Interface) using the Event **device_event_device_rta**."
+      allOf:
+        - title: Action Request
+          description: |-
+            Base message for all Actions sent from ASM to Keepers.
+            The Action request for execution of an operation on Keepers Endpoint Entity.
+          allOf:
+            - title: message
+              type: object
+              description: Base Message for all messages between ASM and Keepers.
+              properties:
+                timestamp:
+                  title: field_time_epoch
+                  type: integer
+                  description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                  format: int64
+                  example: 1587825115
+                trace_id:
+                  type: string
+                  description: unique identifier of this specific message flow
+                device:
+                  title: device_id_definition
+                  type: object
+                  properties:
+                    device_id:
+                      type: string
+                      title: field_device_id
+                      description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                      example: d290f1ee6c544b0190e6d701748f0852
+                      maxLength: 64
+                      pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+              required:
+                - timestamp
+                - trace_id
+                - device
+            - type: object
+              discriminator:
+                propertyName: action_type
+              properties:
+                action_type:
+                  type: string
+                  description: Type of action to execute
+                  enum:
+                    - action_cancel_device
+                    - action_refresh_location
+                    - action_send_app_list
+                    - action_send_rta
+                    - action_send_device_data
+                  example: action_refresh_location
+                action_request_id:
+                  type: string
+                  title: field_uuid_32_def
+                  format: uuid
+                  example: d290f1ee6c544b0190e6d701748f0892
+                  minLength: 32
+                  maxLength: 32
+                  pattern: '^[a-zA-Z0-9]+$'
+              required:
+                - action_type
+                - action_request_id
+    Configuration:
+      title: Push Configuration
+      description: "ASM Configuration for Keepers Endpoint (Keepers Application on Mobile Endpoint). \nOn reception Keepers Endpoint cleans its current state and applies the new configuration as a whole. \nAs a reponse the Endpoint sends to ASM **device_event_configuration_applied**.\n"
+      allOf:
+        - title: message
+          type: object
+          description: Base Message for all messages between ASM and Keepers.
+          properties:
+            timestamp:
+              title: field_time_epoch
+              type: integer
+              description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+              format: int64
+              example: 1587825115
+            trace_id:
+              type: string
+              description: unique identifier of this specific message flow
+            device:
+              title: device_id_definition
+              type: object
+              properties:
+                device_id:
+                  type: string
+                  title: field_device_id
+                  description: Unique identifier of current entity. It must provided for all operations except the entity creation.
+                  example: d290f1ee6c544b0190e6d701748f0852
+                  maxLength: 64
+                  pattern: "^[a-zA-Z0-9\\-\\._@]+$"
+          required:
+            - timestamp
+            - trace_id
+            - device
+        - type: object
+          properties:
+            general:
+              type: object
+              required:
+                - birthdate
+                - configuration_id
+              properties:
+                birthdate:
+                  title: field_time_ISO-8601
+                  type: string
+                  pattern: "^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\\\.[0-9]+)?(Z)$"
+                  maxLength: 20
+                  minLength: 20
+                  example: '2008-09-15T15:53:00Z'
+                  format: date-time
+                  readOnly: true
+                  description: 'Timestamp expressed in UTC ISO-8601 in the format YYYY-MM-DDThh:mm:ssZ (note it must finish in Z for indicating UTC).'
+                configuration_id:
+                  type: integer
+                  title: field_configuration_id_def
+                  format: int64
+                  example: 153
+                  minimum: 1
+                  exclusiveMinimum: false
+                  description: Increamental configuration ID. Each time new configuration is sent to the Endpoint the configuration id incremamted by 1
+                activation_key:
+                  type: string
+                  description: |-
+                    This field is optional and should be used in first configuration only (after recieving device_event_on_boarding). first configuration state ends when ASM receives device_event_configuration_applied from the device.
+                    When Keepers recevies configuration with the activation key, it triggers the addition of that device to their DB.
+            services:
+              type: object
+              properties:
+                general:
+                  type: object
+                  required:
+                    - uninstall_secret_key
+                    - statistics_event_time_interval_sec
+                  properties:
+                    uninstall_secret_key:
+                      type: string
+                      default: '""'
+                      description: Entering secret key enables uninstall of the application
+                    statistics_event_time_interval_sec:
+                      type: integer
+                      default: 3600
+                      description: Time interval for sending device_event_statistics. The value 0 means Statistics reporting is disabled.
+                geo_fence:
+                  type: object
+                  description: Configuration block for geo-fence related policies.
+                  required:
+                    - enabled
+                    - min_time_between_events_sec
+                  properties:
+                    enabled:
+                      type: boolean
+                      description: Setting this flag to true will enable geo-fence service in the endpoint. ASM will set this flag to true when in Account services_provisioned.location_managment.provisioned == true AND in ServiceConfiguration location_managment.enabled == true for this account and device.
+                      example: 'true'
+                    areas:
+                      type: array
+                      description: List of Geo-Fence areas configured by the Manager
+                      items:
+                        title: geo_fence_area_definition
+                        type: object
+                        description: 'This Model describes Geo-Fence Area. The area is used in Geo-Fence configuration (**push_configuration**) and in the Event **device_event_geo_fence** that is created as reposne to Area Violation.'
+                        properties:
+                          area_id:
+                            type: string
+                            title: field_uuid_32_def
+                            format: uuid
+                            example: d290f1ee6c544b0190e6d701748f0892
+                            minLength: 32
+                            maxLength: 32
+                            pattern: '^[a-zA-Z0-9]+$'
+                          creation_time:
+                            title: field_time_epoch
+                            type: integer
+                            description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                            format: int64
+                            example: 1587825115
+                          latitude:
+                            type: number
+                            format: float
+                            example: 30
+                            minimum: -90
+                            maximum: 90
+                          longitude:
+                            type: number
+                            format: float
+                            example: 120
+                            minimum: -180
+                            maximum: 180
+                          radius_meters:
+                            type: integer
+                            description: Radius of Geo Fence Area in meters
+                            format: int32
+                            example: 155
+                          is_restricted:
+                            type: boolean
+                            description: 'Trus in case this is Restricted(Red) area, False in case of Allowed(Green) area'
+                            example: 'true'
+                        required:
+                          - area_id
+                          - creation_time
+                          - latitude
+                          - longitude
+                          - radius_meters
+                          - is_restricted
+                    min_time_between_events_sec:
+                      type: integer
+                      default: 60
+                      description: Mimimum allowed time in seconds between 2 Geo-Fence alerts (events)
+                anti_bullying:
+                  type: object
+                  description: Configuration block for anti-bullying related policies.
+                  required:
+                    - enabled
+                  properties:
+                    enabled:
+                      type: boolean
+                      example: 'true'
+                quiet_time:
+                  type: object
+                  description: Configuration for providing an immediate Quiet Time in which all navigation is blocked until a specific moment.
+                  required:
+                    - enabled
+                    - quiettime_release_key
+                  properties:
+                    enabled:
+                      type: boolean
+                      default: false
+                      description: 'When true, Quiet Time feature is Enabled'
+                      example: true
+                    quiettime_release_key:
+                      type: string
+                      description: 'When device is in quiet time, this key releases the lock'
+                    schedules:
+                      type: object
+                      properties:
+                        enabled:
+                          type: boolean
+                          description: 'Each schedule can be enabled seperatly, by that parent can disable without deleteing the entry'
+                        start_time:
+                          title: field_time_epoch
+                          type: integer
+                          description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                          format: int64
+                          example: 1587825115
+                        end_time:
+                          title: field_time_epoch
+                          type: integer
+                          description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                          format: int64
+                          example: 1587825115
+                        days_of_week:
+                          type: array
+                          description: 'When present, these are the days of the week to apply the schedule. When not present, or when it contains the element "always," the current schedule is applied every day of the week.'
+                          items:
+                            type: string
+                            title: field_weekday
+                            enum:
+                              - monday
+                              - tuesday
+                              - wednesday
+                              - thursday
+                              - friday
+                              - saturday
+                              - sunday
+                              - always
+                            example: sunday
+                            description: 'Identifier for a weekday, or the complete set of weekdays.'
+                            x-examples:
+                              example-1: {}
+                      required:
+                        - start_time
+                        - end_time
+                    immediate:
+                      type: object
+                      properties:
+                        enabled:
+                          type: boolean
+                          description: When true Immediate Quiet Time is enabled. In case end_time not configured quiet time continues till Parent disables.
+                        end_time:
+                          title: field_time_epoch
+                          type: integer
+                          description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                          format: int64
+                          example: 1587825115
+                      required:
+                        - enabled
+                app_blocking:
+                  type: object
+                  description: Configuration related to blocking navigation depending on time spans. Each time span is called a schedule. There are separate actions for each schedule.
+                  required:
+                    - enabled
+                    - app_block_event_min_time_sec
+                    - schedules
+                  properties:
+                    enabled:
+                      type: boolean
+                      example: 'true'
+                    app_block_event_min_time_sec:
+                      type: integer
+                      default: 900
+                      description: Minimum time between events. keepers sends that event only in case there is something to report about
+                      example: 900
+                    schedules:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          start_time:
+                            title: field_time_epoch
+                            type: integer
+                            description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                            format: int64
+                            example: 1587825115
+                          end_time:
+                            title: field_time_epoch
+                            type: integer
+                            description: 'The number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). e.g. Unix Time, Epoch Time'
+                            format: int64
+                            example: 1587825115
+                          action:
+                            type: string
+                            description: The action to execute during this schedule.
+                            enum:
+                              - block
+                              - allow
+                            example: block
+                          days_of_week:
+                            type: array
+                            description: 'When present, these are the days of the week to apply the schedule. When not present, or when it contains the element "always," the current schedule is applied every day of the week.'
+                            items:
+                              type: string
+                              title: field_weekday
+                              enum:
+                                - monday
+                                - tuesday
+                                - wednesday
+                                - thursday
+                                - friday
+                                - saturday
+                                - sunday
+                                - always
+                              example: sunday
+                              description: 'Identifier for a weekday, or the complete set of weekdays.'
+                              x-examples:
+                                example-1: {}
+                          blocked_apps:
+                            type: array
+                            items:
+                              title: app_definition
+                              type: object
+                              description: |-
+                                This Model describes the definition of an Application.
+                                Applicatoin can be used in App Usage, Blocked Apps....
+                              properties:
+                                app_name:
+                                  type: string
+                                  description: 'application name, for example whatsapp'
+                                  example: youtube
+                                  maxLength: 64
+                                package_name:
+                                  type: string
+                                  title: app_package_name_def
+                                  example: com.google.android.youtube
+                                  description: Application Package Name in Android/iOS
+                              required:
+                                - app_name
+                                - package_name
+                          enabled:
+                            type: boolean
+                            description: The Parent can disable/enable scheduel time without deleting it
+                        required:
+                          - start_time
+                          - end_time
+                          - action
+                          - days_of_week
+                          - blocked_apps
+                          - enabled
+                content_filtering:
+                  type: object
+                  required:
+                    - enabled
+                    - content_filtering_event_time_interval_sec
+                    - blocked_categories
+                  properties:
+                    enabled:
+                      type: boolean
+                      example: 'true'
+                    content_filtering_event_time_interval_sec:
+                      type: number
+                      default: 900
+                      description: Event time interval
+                      example: 900
+                    blocked_categories:
+                      type: array
+                      description: |-
+                        The list of IDs of blocked categories, according to the current list of categories of the ES. Content belonging to the categories on the list is blocked.
+                        Special considerations depending on specific settings in ASM:
+
+                        * ASM will include in this list elements from ServicesConfiguration.parental_control.blocked_categories
+
+                        * When ServicesConfiguration.threat_protection.enabled == true AND ServicesConfiguration.antimalware_category_enabled == true then hacking category will be included (TODO: PENDING CONFIRMATION ON THIS CATEGORY MAPPING BY PRODUCT).
+                        * TODO: PENDING CONFIRMATION IF THERE IS A MAPPING FOR A CATEGORY FOR ANTIMALWARE
+                        * TODO: PENDING CONFIRMATION IF THERE IS A MAPPING FOR A CATEGORY FOR ANTIBOTNET
+                        * When account.services_provisioned.ads_free == true AND ServicesConfiguration.ads_free.enabled == true then ads category will be included (TODO: PENDING CONFIRMATION ON THIS CATEGORY MAPPING BY PRODUCT)
+                      items:
+                        type: string
+                        title: field_allot_category.yaml
+                        enum:
+                          - acma
+                          - government
+                          - anonymizers
+                          - anorexia_and_bulimia
+                          - spam_advertisers
+                          - art
+                          - gambling
+                          - banners
+                          - blogs
+                          - bombs
+                          - search_engines
+                          - chat
+                          - malware
+                          - shopping
+                          - webmail
+                          - sports
+                          - drugs
+                          - economy
+                          - education
+                          - employment
+                          - dating
+                          - financial_institutions
+                          - leisure
+                          - glamour
+                          - forum
+                          - generic
+                          - directory_and_street_maps
+                          - hackers
+                          - hostingdomains
+                          - kids
+                          - info
+                          - computing
+                          - ips_spammers
+                          - games
+                          - legal
+                          - white_list
+                          - black_list
+                          - logos_and_ringtones
+                          - instant_messaging
+                          - models
+                          - music
+                          - nazism
+                          - novirus_md5sums
+                          - pay_per_surf
+                          - personal_websites
+                          - phishing
+                          - popups
+                          - pornography
+                          - child_pornography
+                          - portals
+                          - press
+                          - racism
+                          - redirectors
+                          - society
+                          - health
+                          - sects
+                          - dns_services
+                          - p2p_servers
+                          - sexuality
+                          - spam_md5sums
+                          - spammers
+                          - spyware
+                          - telecommunications
+                          - travel
+                          - violence
+                          - voip
+                          - ipreplist
+                          - classified_ads
+                          - online_storage
+                          - alcohol_and_tobacco
+                          - reference_material
+                          - social_networks
+                          - photo_and_video
+                          - radio_and_tv_online
+                          - adult_games
+                          - internal
+                          - iwf_caic
+                          - software_update
+                          - antivirus_updates
+                          - kids_and_teens
+                          - restaurants
+                          - gastronomy
+                          - humor
+                          - pets
+                          - amusement_parks
+                          - astrology
+                          - garden_and_diy
+                          - cinema_theater_and_shows
+                          - series_and_movies
+                          - shopping_centers
+                          - nightlife
+                          - piercing_and_tattoos
+                          - antiques_and_collectables
+                          - home_and_garden
+                          - electronics
+                          - jewelry
+                          - books_music_and_videos
+                          - kids_and_babies
+                          - office
+                          - auctions
+                          - barter_and_exchange
+                          - clothing
+                          - real_state
+                          - mobiles
+                          - martial_arts
+                          - athletics
+                          - basketball
+                          - cycling
+                          - soccer
+                          - american_football
+                          - baseball
+                          - ice_hockey
+                          - golf
+                          - mountaineering
+                          - motor_racing
+                          - motorcycling
+                          - relaxation_sports
+                          - racket_sports
+                          - fighting
+                          - water_sports
+                          - winter_sports
+                          - air_sports
+                          - sport_centers
+                          - hunting_and_fishing
+                          - insurance
+                          - stock_exchange
+                          - vehicles
+                          - parked_domain
+                          - no_visible
+                          - easylist
+                          - botnetkav
+                          - tracking
+                          - content_delivery_networks
+                          - business
+                          - events
+                          - photography
+                          - books_literature
+                          - nature
+                          - ongs
+                          - politics_unions
+                          - religion
+                          - abortion
+                          - cyberbullying
+                          - military
+                          - pregnancy
+                          - self_harm
+                          - terrorism_extremism
+                          - weapons
+                          - gyms
+                        description: ''
+                    allowed_urls:
+                      type: array
+                      description: |-
+                        List of URLS that will be allowed to navigate, even if it belongs to one of the blocked categories.
+                        ASM will include in this list elements both from ServicesConfiguration.ads_free.allowed_urls AND from ServicesConfiguration.parental_control.allowed_urls
+                      items:
+                        type: string
+                    blocked_urls:
+                      type: array
+                      description: |-
+                        List of URLS that will be blocked to navigate under any condition.
+
+                        ASM will include in this list elements from ServicesConfiguration.parental_control.blocked_urls.
+                      items:
+                        type: string
+                    isp_blocked_urls:
+                      type: array
+                      description: 'Blacklist defined by ISP. In case URL matches entry in this list, navigation should be blocked (Even if the URL exists in User Whitelist)'
+                      items:
+                        type: string
+                location_tracking:
+                  type: object
+                  required:
+                    - enabled
+                    - drive_min_time_between_reports_sec
+                    - walk_min_distance_meter
+                    - walk_min_time_between_events_sec
+                  properties:
+                    enabled:
+                      type: boolean
+                      example: 'true'
+                      description: When True location tracking is enabled
+                    drive_min_distance_meter:
+                      type: integer
+                      default: 50000
+                      description: 'In case Endpoint is in **Drive** mode, what is the minimum movment in meters that should create a location event to ASM'
+                    drive_min_time_between_reports_sec:
+                      type: integer
+                      default: 1800
+                      description: 'After location event, this is the minimum time need to wait before it is permit to send another location (if moved more distance than configured)'
+                    walk_min_distance_meter:
+                      type: integer
+                      default: 100
+                      description: 'In case Endpoint is in **Walk** mode, what is the minimum movment in meters that should create a location event to ASM'
+                    walk_min_time_between_events_sec:
+                      type: integer
+                      default: 60
+                      description: 'After location event, this is the minimum time need to wait before it is permit to send another location (if moved more distance than configured)'
+                battery:
+                  type: object
+                  properties:
+                    enabled:
+                      type: boolean
+                      description: When True battery status reporting is enbaled
+                    battery_up_report_level:
+                      type: integer
+                      default: 10
+                      description: 'Battery up precentage for device_event_battery(e.g. every 10%)'
+                    battery_down_report_level:
+                      type: integer
+                      default: 5
+                      description: 'Battery down precentage for device_event_battery (e.g. every 5%)'
+                    battery_event_enabled:
+                      type: boolean
+                      default: 'true'
+                      description: True in case battery event is enabled.
+                      example: 'true'
+                    min_time_between_events_sec:
+                      type: integer
+                      default: 900
+                      description: Minimum time that should be passed between 2 device_event_battery events
+                  required:
+                    - battery_up_report_level
+                    - battery_down_report_level
+                    - battery_event_enabled
+                    - min_time_between_events_sec
+                app_usage:
+                  type: object
+                  required:
+                    - enabled
+                    - app_usage_event_time_interval_sec
+                  properties:
+                    enabled:
+                      type: boolean
+                      description: When True Keepers Endpoint sends app usage reports
+                    app_usage_event_time_interval_sec:
+                      type: integer
+                      default: 3600
+                      description: Time interval for sending device_event_app_usage. The value 0 means APP Usage reporting is disabled.
+                connectivity:
+                  type: object
+                  required:
+                    - enabled
+                    - disconnected_max_time_minutes
+                    - hello_event_time_interval_sec
+                    - max_time_store_event_in_disconnect_minutes
+                  properties:
+                    enabled:
+                      type: boolean
+                      description: If True Keepers Endpoint sends periodic Hellos
+                    disconnected_max_time_minutes:
+                      type: integer
+                      default: 2880
+                      example: 2880 - 2 days
+                      description: After that Time with no internet availability the endpoint declares himseld as disconneced.
+                    hello_event_time_interval_sec:
+                      type: integer
+                      default: 3600
+                      description: Time interval for sending device_event_hello.
+                    max_time_store_event_in_disconnect_minutes:
+                      type: integer
+                      description: "General configuration for events(reports) that should be sent to ASM but the Endpoint is disconnected. This configuration controls the amount of time report should be kept in the Endpoint before discarded. \nThis relevant for the following events -\ndevice_event_app_block\ndevice_event_app_usage \ndevice_event_content_filtering\ndevice_event_geo_fence\ndevice_event_location\ndevice_event_statistics\ndevice_event_capabilities_changed"
+                      default: 360
+                      example: 360
+              required:
+                - general
+                - geo_fence
+                - anti_bullying
+                - quiet_time
+                - app_blocking
+                - content_filtering
+                - location_tracking
+                - app_usage
+                - connectivity
+          required:
+            - general
